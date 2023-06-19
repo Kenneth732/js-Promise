@@ -1,48 +1,30 @@
-// let success = true;
-
-// function getUser(){
-//     return new Promise((resolve, reject) => {
-//         setTimeout(() => {
-//             resolve([
-//                 { username: 'john', email: 'john@test.com' },
-//                 { username: 'jane', email: 'jane@test.com' },
-//             ]);
-//         }, 1000);
-//     });
-// }
-
-// function onFulfilled(users){
-//     console.log(users)
-// }
-// function onRejected(error){
-//     console.log(error);
-// }
-
-// const promise = getUser();
-// promise.then(onFulfilled, onRejected)
-
-
-// The following example changes the success flag to false to simulate the error scenario:
-
-let success = false;
-
-function getUsers() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (success) {
-        resolve([
-          { username: 'john', email: 'john@test.com' },
-          { username: 'jane', email: 'jane@test.com' },
-        ]);
-      } else {
-        reject('Failed to the user list');
-      }
-    }, 1000);
+function load(url) {
+    return new Promise(function (resolve, reject) {
+      const request = new XMLHttpRequest();
+      request.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status == 200) {
+          resolve(this.response);
+        } else {
+          reject(this.status);
+        }
+      };
+      request.open('GET', url, true);
+      request.send();
+    });
+  }
+  
+  const url = 'https://www.javascripttutorial.net/sample/promise/api.json';
+  const btn = document.querySelector('#btnGet');
+  const msg = document.querySelector('#message');
+  
+  btn.addEventListener('click', () => {
+    load(URL)
+      .then((response) => {
+        const result = JSON.parse(response);
+        msg.innerHTML = result.message;
+      })
+      .catch((error) => {
+        msg.innerHTML = `Error getting the message, HTTP status: ${error}`;
+      });
   });
-}
-
-const promise = getUsers();
-
-promise.catch((error) => {
-  console.log(error);
-});
+  
