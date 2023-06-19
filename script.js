@@ -11,8 +11,9 @@ function getUser(){
     });
 }
 
-const promise = getUser();
-
 function onFulfilled(users){
     console.log(users)
 }
+
+const promise = getUser();
+
