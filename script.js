@@ -1,3 +1,5 @@
+let success = true;
+
 function getUser(){
     return new Promise((resolve, reject) => {
         setTimeout(() => {
