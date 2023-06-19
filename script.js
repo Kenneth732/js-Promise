@@ -14,6 +14,9 @@ function getUser(){
 function onFulfilled(users){
     console.log(users)
 }
+function onRejected(error){
+    console.log(error);
+}
 
 const promise = getUser();
-
+promise.then(onFulfilled, onRejected)
